@@ -77,5 +77,59 @@ Python 3.x<br>
 ![image](https://github.com/user-attachments/assets/19cb6ac0-e744-4a35-acb1-cf134cd7b702)<br>
 
 #测试文档<br>  
+##1. 目标<br>
+测试爬虫脚本的功能是否按预期工作，包括数据提取、存储到数据库、以及处理不同页面的情况。<br>
 
-本系统是基于Python编写的自动化爬虫程序，专门用于从链家网上海二手房房源页面高效地爬取数据。
+##2. 环境<br>
+Python版本: 3.7+<br>
+依赖库: requests, parsel, sqlite3, logging<br>
+测试网站: https://sh.lianjia.com/ershoufang/<br>
+数据库: SQLite (house_data.db)<br>
+##3. 测试用例<br>
+###3.1: 数据提取<br>
+目标: 验证extract_house_info函数是否能正确提取房源信息。<br>
+步骤:<br>
+从一个房源列表项中提取信息。<br>
+检查返回的数据字典中的各字段是否与期望一致。<br>
+预期结果:<br>
+
+{<br>
+    "标题": "润江花苑 3室1厅 南 北",
+    "地区": "润江花苑 _泗泾",
+    "户型": "3室1厅",
+    "面积": " 90.11平米 ",
+    "朝向": " 南 北 ",
+    "装修": "简装",
+    "楼层": " 中楼层(共25层) ",
+    "建立时间": " 2011年 ",
+    "房子类型": " 塔楼",
+    "标签": "VR看装修_房本满五年",
+    "总价": "255万",
+    "单价": "28299元/平",
+    "关注人数": "41人关注 ",
+    "发布时间": " 1个月以前发布",
+    "详情页": "https://sh.lianjia.com/ershoufang/107109922689.html"
+}<br>
+实际结果:<br>
+![image](https://github.com/user-attachments/assets/3f8e608d-659b-430a-a3ff-757a1f595d61)![image](https://github.com/user-attachments/assets/315128dc-ebb5-4b13-8522-bd32427cd81f)<br>
+###3.2: 页面爬取<br>
+目标: 验证scrape_page函数是否能成功爬取指定页面的数据。<br>
+步骤:<br>
+爬取页面 pg16。<br>
+确认返回的房源数据符合实际页面内容。<br>
+预期结果与提取的数据应该与页面显示的数据一致。<br>
+![image](https://github.com/user-attachments/assets/7d4be02d-94cd-41d0-9949-19ee7daf877e)<br>
+###3.3 正确爬取网站1000条以上信息<br>
+目标: 验证main函数是否能正确地爬取1000条以上数据，并将数据插入到数据库中。<br>
+步骤:<br>
+运行main函数。<br>
+确认所有页面数据被成功爬取和存储。<br>
+预期结果:<br>
+所有页面数据应被正确爬取，数据库中应包含完整的数据集。<br>
+实际结果:<br>
+![image](https://github.com/user-attachments/assets/55d65297-5740-4e43-9413-ce9a1da124fb)<br>
+
+
+
+
+
